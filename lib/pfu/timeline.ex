@@ -86,6 +86,8 @@ defmodule Pfu.Timeline do
 
   """
   def update_post(%Post{} = post, attrs, after_save \\ &{:ok, &1}) do
+    attrs = Map.put(attrs, "photo_urls", post.photo_urls)
+
     post
       |> Post.changeset(attrs)
       |> Repo.update()

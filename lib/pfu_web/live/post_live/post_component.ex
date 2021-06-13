@@ -1,6 +1,6 @@
 defmodule PfuWeb.PostLive.PostComponent do
   use PfuWeb, :live_component
-
+  require Logger
   def render(assigns) do
     ~L"""
       <div id="post-<%= @post.id %>" class="table post">
@@ -13,7 +13,20 @@ defmodule PfuWeb.PostLive.PostComponent do
           <div class="column column-90 post-body">
             <b>@<%= @post.user.username %></b>
             <br/>
-            <%= @post.body %>
+            <%= if String.contains?(@post.body, "https://www.youtube.com/embed/") do %>
+              <iframe
+                width="300"
+                height="200"
+                src=<%= @post.body %>
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              >
+              </iframe>
+            <% else %>
+              <%= @post.body %>
+            <% end %>
             <div class="column">
               <%= for url <- @post.photo_urls do %>
                 <img src="<%= url %>" height="150" />
