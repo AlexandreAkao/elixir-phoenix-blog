@@ -7,7 +7,7 @@ defmodule Pfu.Timeline do
   alias Pfu.Repo
   alias Pfu.Timeline.Post
   alias Pfu.User #Programado
-
+    require Logger
   @doc """
   Returns the list of posts.
 
@@ -19,7 +19,7 @@ defmodule Pfu.Timeline do
   """
   def list_posts do
     #Repo.all(from p in Post, join: u in User, on: p.user_id == u.id, select: %Post{id: p.id, body: p.body, likes_count: p.likes_count, reposts_count: p.reposts_count, user_id: p.user_id, username: u.username}, order_by: [desc: p.id])
-    Repo.all(from p in Post, join: u in assoc(p, :user), preload: [user: u], order_by: [asc: p.likes_count])
+    Repo.all(from p in Post, join: u in assoc(p, :user), preload: [user: u], order_by: [asc: p.inserted_at])
   end
 
   @doc """
