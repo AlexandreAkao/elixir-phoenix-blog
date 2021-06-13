@@ -1,0 +1,13 @@
+<div id="tipos">
+  <div class="row">
+    <div class="column column-10">
+      <div>
+        <img src="https://image.flaticon.com/icons/svg/180/180<%= 559 + @tipo.id %>.svg" height="32" alt="<%= @tipo.name %>">
+      </div>
+    </div>
+    <div class="column column-90">
+      <b>ID: <%= @tipo.id %></b><br/>
+      <b>NAME: </b> <%= name(@tipo) %> <br/>
+    </div>
+  </div>
+</div>

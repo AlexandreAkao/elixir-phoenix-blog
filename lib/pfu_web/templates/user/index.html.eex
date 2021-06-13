@@ -4,6 +4,7 @@
   <tr>
     <td>ID</td>
     <td>FIRST NAME</td>
+    <td>TIPO</td>
     <td>SHOW</td>
     <td>EDIT</td>
     <td>DEL</td>
@@ -15,6 +16,9 @@
       </td>
       <td>
         <b><%= first_name(user) %></b>
+      </td>
+      <td>
+        <b><%= get_tipo(user) %></b>
       </td>
       <td>
           <%= link "MORE", to: PfuWeb.Router.Helpers.user_path(@conn, :show, user.id) %>

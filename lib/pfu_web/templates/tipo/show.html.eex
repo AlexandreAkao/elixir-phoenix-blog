@@ -1,0 +1,2 @@
+<%= render "tipo.html", tipo: @tipo %> <br/>
+<%= Phoenix.HTML.Link.link("<<< BACK: ", to: "/tipos") %>

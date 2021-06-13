@@ -1,0 +1,5 @@
+<h1>Edit Tipo</h1>
+
+<%= render "form.html", Map.put(@conn.assigns, :action, Routes.tipo_path(@conn, :update, @tipo)) %>
+
+<span><%= link "BACK", to: Routes.tipo_path(@conn, :index) %></span>

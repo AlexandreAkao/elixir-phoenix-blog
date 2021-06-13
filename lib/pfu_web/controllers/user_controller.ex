@@ -2,29 +2,36 @@ defmodule PfuWeb.UserController do
   use PfuWeb, :controller
   alias Pfu.Repo
   alias Pfu.User
+  alias Pfu.Tipo
   alias PfuWeb.Auth
 
   plug :authenticate_user when action in [:index, :show]
 
   def index(conn, _params) do
+    tipos = Repo.all(Tipo) |> Enum.map(&{&1.name, &1.id})
+
     usuarios = Repo.all(User)
-    render conn, "index.html", users: usuarios
+    render(conn, "index.html", users: usuarios, tipos: tipos)
   end
 
   def show(conn, %{"id" => id}) do
-    #IO.inspect(conn)
+    tipos = Repo.all(Tipo) |> Enum.map(&{&1.name, &1.id})
+
     usuario = Repo.get(User, id)
-    render conn, "show.html", user: usuario
+    render(conn, "show.html", user: usuario, tipos: tipos)
   end
 
-  ## Explixar na proxima aula
   def new(conn, _params) do
+    tipos = Repo.all(Tipo) |> Enum.map(&{&1.name, &1.id})
+
     changeset = User.changeset(%User{}, %{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, tipos: tipos)
   end
 
     ## Explixar na proxima aula
   def create(conn, %{"user" => user_params}) do
+    tipos = Repo.all(Tipo) |> Enum.map(&{&1.name, &1.id})
+
     changeset = User.changeset(%User{}, user_params)
     #nao trata erro:
     #{:ok, user} = Repo.insert(changeset)
@@ -38,7 +45,7 @@ defmodule PfuWeb.UserController do
           |> put_flash(:info, "#{user.name} created!")
           |> redirect(to: Routes.user_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, tipos: tipos)
     end
   end
 

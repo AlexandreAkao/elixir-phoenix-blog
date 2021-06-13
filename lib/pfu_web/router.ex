@@ -24,6 +24,7 @@ defmodule PfuWeb.Router do
     #get "/users", UserController, :index
     #get "/users/:id", UserController, :show
     resources "/users", UserController, only: [:index, :show, :new, :create, :delete, :edit, :update]
+    resources "/tipos", TipoController, only: [:index, :show, :new, :create, :delete, :edit, :update]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
 
     live "/posts", PostLive.Index, :index

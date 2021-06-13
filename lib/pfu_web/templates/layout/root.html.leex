@@ -14,7 +14,9 @@
       <div class="container">
             <a href="/"><i class="fa fa-home">HOME | </i></a>
             <a href="/users"><i class="fa fa-users">USUARIOS | </i></a>
+            <a href="/tipos"><i class="fa fa-users">TIPOS | </i></a>
             <a href="/posts"><i class="fa fa-users">POSTAGENS | </i></a>
+            <i class="fa fa-registered"> <%= link "Criar Tipos | ", to: Routes.tipo_path(@conn, :new) %></i>
             <!--
             <a href="/posts"><i class="fa fa-comments"> Timeline</i></a>
             -->

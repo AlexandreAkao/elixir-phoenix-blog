@@ -1,0 +1,4 @@
+<%= Routes.tipo_path(@conn, :new)%>
+<h1>Novo Tipo</h1>
+
+<%= render "form.html", Map.put(@conn.assigns, :action, Routes.tipo_path(@conn, :create)) %>

@@ -1,0 +1,29 @@
+<h1>Listing Tipos</h1>
+<table class="table">
+  <tr>
+    <td>ID</td>
+    <td>NAME</td>
+    <td>SHOW</td>
+    <td>EDIT</td>
+    <td>DEL</td>
+  </tr>
+  <%= for tipo <- @tipos do %>
+    <tr>
+      <td>
+        <%= tipo.id %>
+      </td>
+      <td>
+        <b><%= tipo.name %></b>
+      </td>
+      <td>
+          <%= link "MORE", to: PfuWeb.Router.Helpers.tipo_path(@conn, :show, tipo.id) %>
+      </td>
+      <td>
+        <%= link "EDIT", to: Routes.tipo_path(@conn, :edit, tipo) %>
+      </td>
+      <td>
+        <%= link "DEL", to: Routes.tipo_path(@conn, :delete, tipo), method: :delete, data: [confirm: "REMOVER?"] %>
+      </td>
+    </tr>
+<% end %>
+</table>

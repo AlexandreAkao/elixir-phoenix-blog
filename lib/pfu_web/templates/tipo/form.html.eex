@@ -1,0 +1,12 @@
+<%= form_for @changeset, @action, fn f -> %>
+    <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+            <p>Algo incorreto! Por favor, verificar erros abaixo.</p>
+        </div>
+    <% end %>
+    <div class="form-group">
+        <%= text_input f, :name, placeholder: "Name", class: "form-control" %>
+        <%= error_tag f, :name %>
+    </div>
+    <%= submit "RECORD", class: "btn btn-primary" %>
+<% end %>
