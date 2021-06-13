@@ -1,6 +1,6 @@
 defmodule PfuWeb.PostLive.PostComponent do
   use PfuWeb, :live_component
-  require Logger
+
   def render(assigns) do
     ~L"""
       <div id="post-<%= @post.id %>" class="table post">
@@ -11,7 +11,10 @@ defmodule PfuWeb.PostLive.PostComponent do
             </div>
           </div>
           <div class="column column-90 post-body">
-            <b>@<%= @post.user.username %></b>
+            <div class="post-header">
+              <b>@<%= @post.user.username %></b>
+              <span><%= @post.user.tipo.name %></span>
+            </div>
             <br/>
             <%= if String.contains?(@post.body, "https://www.youtube.com/embed/") do %>
               <iframe
@@ -37,18 +40,18 @@ defmodule PfuWeb.PostLive.PostComponent do
 
         <%= if @current_user do %>
           <div class="row flipar">
-            <div class="column">
+            <div class="column button-container">
               <a href="#" phx-click="like" phx-target="<%= @myself %>">
                 <i class="far fa-thumbs-up"></i><%= @post.likes_count %>
               </a>
             </div>
-            <div class="column">
+            <div class="column button-container">
               <a href="#" phx-click="repost" phx-target="<%= @myself %>">
                 <i class="fas fa-retweet"></i><%= @post.reposts_count %>
               </a>
             </div>
             <%= if @current_user.id==@post.user_id do %>
-              <div class="column">
+              <div class="column button-container">
                 <%= live_patch to: Routes.post_index_path(@socket, :edit, @post.id) do %>
                   <i class="fa fa-edit"></i>
                 <% end %>

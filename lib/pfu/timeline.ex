@@ -7,7 +7,14 @@ defmodule Pfu.Timeline do
   alias Pfu.Repo
   alias Pfu.Timeline.Post
   alias Pfu.User #Programado
-    require Logger
+
+  @statuses_order """
+    (case(?)
+      when 'Professor' then 1
+      when 'professor' then 2
+      else 3
+    end)
+  """
   @doc """
   Returns the list of posts.
 
@@ -19,7 +26,13 @@ defmodule Pfu.Timeline do
   """
   def list_posts do
     #Repo.all(from p in Post, join: u in User, on: p.user_id == u.id, select: %Post{id: p.id, body: p.body, likes_count: p.likes_count, reposts_count: p.reposts_count, user_id: p.user_id, username: u.username}, order_by: [desc: p.id])
-    Repo.all(from p in Post, join: u in assoc(p, :user), preload: [user: u], order_by: [asc: p.inserted_at])
+    Repo.all(
+      from p in Post,
+      join: u in assoc(p, :user),
+      join: t in assoc(u, :tipo),
+      preload: [user: { u, tipo: t }],
+      order_by: [desc: fragment(@statuses_order, t.name)]
+    )
   end
 
   @doc """

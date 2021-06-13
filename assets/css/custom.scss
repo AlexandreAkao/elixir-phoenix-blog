@@ -12,6 +12,17 @@
 .post-avatar {
 }
 
+.post-header {
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-style: italic;
+    font-weight: 600;
+    color: rgb(86, 86, 167);
+  }
+}
+
 .row {
   align-items: center;
 }
