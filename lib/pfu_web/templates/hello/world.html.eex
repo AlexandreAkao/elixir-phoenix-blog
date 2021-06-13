@@ -1,0 +1,13 @@
+<h2>
+  Reverso:
+</h2>
+<h1>
+  <%= String.reverse @name %>
+</h1>
+
+<%= nome = String.reverse @name
+    "INVERTE"
+      |> Phoenix.HTML.Link.link(to: Routes.hello_path(@conn, :world, nome))
+ %>
+
+<h1><%= "HOME" |> Phoenix.HTML.Link.link(to: PfuWeb.Router.Helpers.page_path(@conn, :index)) %> </h1>

@@ -1,0 +1,18 @@
+<h1>Listing Posts</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, PfuWeb.PostLive.FormComponent,
+    id: @post.id || :new,
+    title: @page_title,
+    action: @live_action,
+    post: @post,
+    return_to: Routes.post_index_path(@socket, :index) %>
+<% end %>
+
+<span> <%= if @current_user, do: live_patch "[NOVO]", to: Routes.post_index_path(@socket, :new) %> </span>
+
+<div id="posts" phx-update="prepend">
+  <%= for post <- @posts do %>
+    <%= live_component @socket, PfuWeb.PostLive.PostComponent, id: post.id, post: post, current_user: @current_user %>
+  <% end %>
+</div>

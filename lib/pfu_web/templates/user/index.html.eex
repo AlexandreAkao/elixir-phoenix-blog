@@ -1,0 +1,30 @@
+<!-- index.html.eex -->
+<h1>Listing Users</h1>
+<table class="table">
+  <tr>
+    <td>ID</td>
+    <td>FIRST NAME</td>
+    <td>SHOW</td>
+    <td>EDIT</td>
+    <td>DEL</td>
+  </tr>
+  <%= for user <- @users do %>
+    <tr>
+      <td>
+        <%= user.id %>
+      </td>
+      <td>
+        <b><%= first_name(user) %></b>
+      </td>
+      <td>
+          <%= link "MORE", to: PfuWeb.Router.Helpers.user_path(@conn, :show, user.id) %>
+      </td>
+      <td>
+        <%= link "EDIT", to: Routes.user_path(@conn, :edit, user) %>
+      </td>
+      <td>
+        <%= link "DEL", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "REMOVER?"] %>
+      </td>
+    </tr>
+<% end %>
+</table>

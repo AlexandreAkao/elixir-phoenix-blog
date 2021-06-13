@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Pfu", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+            <a href="/"><i class="fa fa-home">HOME | </i></a>
+            <a href="/users"><i class="fa fa-users">USUARIOS | </i></a>
+            <a href="/posts"><i class="fa fa-users">POSTAGENS | </i></a>
+            <!--
+            <a href="/posts"><i class="fa fa-comments"> Timeline</i></a>
+            -->
+            <%= if !@current_user do %>
+              <!--
+              <a href="/manage/profile"><i class="fa fa-id-card"> Profile</i></a>
+              <a href="/sessions/new"><i class="fa fa-key"> Enter</i></a>
+              -->
+              <i class="fa fa-registered"> <%= link "Registrar | ", to: Routes.user_path(@conn, :new) %></i>
+              <i class="fa fa-registered"> <%= link "LOGIN | ", to: Routes.session_path(@conn, :new) %></i>
+            <% else %>
+              <%= link "NOVO | ", to: PfuWeb.Router.Helpers.user_path(@conn, :new) %>
+              <%= Phoenix.HTML.Link.link("SAIR ("<>@current_user.username<>") ", to: "/logout") %>
+              <!--
+              <a href="/manage/profile"><i class="fa fa-id-card"> <%= @current_user.username %></i></a>
+              <i class="fa fa-power-off"> <%=# link "SAIR ", to: Routes.session_path(@conn, :delete, @current_user), method: "delete" %></i>
+              -->
+            <% end %>
+        <!-- <a href="/" class="phx-logo"> <img src="<%= Routes.static_path(@conn, "/images/logo.png") %>" alt="Home" width="58" height="64" /> </a> -->
+      </div>
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>
